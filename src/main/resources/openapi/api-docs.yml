@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  title: User Service - OpenAPI 1.0
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+tags:
+  - name: User
+    description: User API
+paths:
+
+  /api/v1/user/registration:
+    post:
+      operationId: registrationNewUser
+      summary: Registration new user
+      tags:
+        - User
+      requestBody:
+        description: Registration User DTO
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationUserDto'
+        required: true
+      responses:
+        '201':
+          description: created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '400':
+          description: Invalid request
+        '404':
+          description: Resource not found
+        '405':
+          description: Method is not available
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    # --- User ---
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: User id
+        name:
+          type: string
+          description: User name
+        birthDate:
+          type: string
+          description: User birthday
+
+    RegistrationUserDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: User name
+        password:
+          type: string
+          description: User password
+        birthDate:
+          type: string
+          description: User birthday
+        phone:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortPhoneDto'
+          description: Phone number
+        email:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortEmailDto'
+          description: User email
+
+    FullUserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: User id
+        name:
+          type: string
+          description: User name
+        birthDate:
+          type: string
+          description: User birthday
+        phone:
+          type: string
+          description: Phone number
+        email:
+          type: string
+          description: User email
+        balance:
+          type: number
+          format: double
+    # --- Phone ---
+    ShortPhoneDto:
+      type: object
+      properties:
+        phone:
+          type: string
+          description: Phone number
+    # --- Phone ---
+    ShortEmailDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email

@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08052023-4
+      author: Herman Makhiyanov
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_account_usr
+                    references: usr(id)
+                    nullable: false
+                    unique: true
+              - column:
+                  name: balance
+                  type: decimal
+              - column:
+                  name: create_at
+                  type: timestamp
+              - column:
+                  name: delete_at
+                  type: timestamp

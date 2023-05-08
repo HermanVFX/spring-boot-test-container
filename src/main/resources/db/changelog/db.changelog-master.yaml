@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: /08052023-1/create-usr-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: /08052023-2/create-phone-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: /08052023-3/create-email-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: /08052023-4/create-account-table.yaml
+      relativeToChangelogFile: true

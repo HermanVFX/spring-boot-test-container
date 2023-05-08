@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08052023-2
+      author: Herman Makhiyanov
+      changes:
+        - createTable:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_phone_usr
+                    references: usr(id)
+                    nullable: false
+                    unique: true
+              - column:
+                  name: phone
+                  type: varchar(13)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: create_at
+                  type: timestamp
+              - column:
+                  name: delete_at
+                  type: timestamp

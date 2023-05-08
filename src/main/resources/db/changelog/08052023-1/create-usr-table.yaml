@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08052023-1
+      author: Herman Makhiyanov
+      changes:
+        - createTable:
+            tableName: usr
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: varchar(500)
+              - column:
+                  name: birth_date
+                  type: varchar
+              - column:
+                  name: password
+                  type: varchar(500)
+              - column:
+                  name: create_at
+                  type: timestamp
+              - column:
+                  name: delete_at
+                  type: timestamp
