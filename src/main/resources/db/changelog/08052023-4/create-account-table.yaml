@@ -9,6 +9,7 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -25,8 +26,24 @@ databaseChangeLog:
                   name: balance
                   type: decimal
               - column:
-                  name: create_at
+                  name: created_at
                   type: timestamp
               - column:
-                  name: delete_at
+                  name: deleted_at
                   type: timestamp
+
+  - changeSet:
+      id: 08052023-4-1
+      author: Herman Makhiyanov
+      changes:
+        - addColumn:
+            tableName: usr
+            columns:
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_usr_account
+                    references: account(id)
+                    nullable: false
+                    unique: true

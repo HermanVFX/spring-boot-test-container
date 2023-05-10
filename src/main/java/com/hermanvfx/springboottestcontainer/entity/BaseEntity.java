@@ -1,17 +1,19 @@
 package com.hermanvfx.springboottestcontainer.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Calendar;
 import java.util.Objects;
 
 @Getter
@@ -21,16 +23,17 @@ public abstract class BaseEntity implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
-    private Instant createdAt;
+    private Calendar createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_at")
-    private Instant deletedAt;
+    private Calendar deletedAt;
 
     @Override
     public boolean equals(Object o) {

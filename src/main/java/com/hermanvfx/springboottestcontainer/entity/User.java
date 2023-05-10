@@ -1,20 +1,21 @@
 package com.hermanvfx.springboottestcontainer.entity;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class User extends BaseEntity {
     private String name;
 
     @Column(name = "birth_date")
-    private String birthDate;
+    private OffsetDateTime birthDate;
 
     @Column(name = "password")
     private String password;
@@ -47,9 +48,9 @@ public class User extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
-    @Column(name = "account")
+    @JoinColumn(name = "account_id")
     private Account account;
 
-    @Column(name = "account", insertable = false, updatable = false)
+    @Column(name = "account_id", insertable = false, updatable = false)
     private Long accountId;
 }

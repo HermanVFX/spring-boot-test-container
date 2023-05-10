@@ -1,17 +1,17 @@
 package com.hermanvfx.springboottestcontainer.entity;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 public class Account extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
 

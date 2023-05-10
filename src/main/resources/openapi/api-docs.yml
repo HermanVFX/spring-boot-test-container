@@ -38,6 +38,214 @@ paths:
         '500':
           description: Server error
 
+  /api/v1/users/name/{filter}&page={page}&size={size}:
+    get:
+      operationId: UsersByName
+      summary: Find users by name
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: filter
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: page
+          required: true
+          schema:
+            type: integer
+            nullable: false
+        - in: path
+          name: size
+          required: true
+          schema:
+            type: integer
+            nullable: false
+      responses:
+        '200':
+          description: Get all users by name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoPage'
+        '400':
+          description: Invalid request
+        '404':
+          description: Resource not found
+        '405':
+          description: Method is not available
+        '500':
+          description: Server error
+
+  /api/v1/users/email/{filter}&page={page}&size={size}:
+    get:
+      operationId: UsersByEmail
+      summary: Find users by email
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: filter
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: page
+          required: true
+          schema:
+            type: integer
+            nullable: false
+        - in: path
+          name: size
+          required: true
+          schema:
+            type: integer
+            nullable: false
+      responses:
+        '200':
+          description: Get all users by email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoPage'
+        '400':
+          description: Invalid request
+        '404':
+          description: Resource not found
+        '405':
+          description: Method is not available
+        '500':
+          description: Server error
+
+  /api/v1/users/balance/{filter}&page={page}&size={size}:
+    get:
+      operationId: UsersByBalance
+      summary: Find users by balance
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: filter
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: page
+          required: true
+          schema:
+            type: integer
+            nullable: false
+        - in: path
+          name: size
+          required: true
+          schema:
+            type: integer
+            nullable: false
+      responses:
+        '200':
+          description: Get all users by balance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoPage'
+        '400':
+          description: Invalid request
+        '404':
+          description: Resource not found
+        '405':
+          description: Method is not available
+        '500':
+          description: Server error
+
+  /api/v1/users/phone/{filter}&page={page}&size={size}:
+    get:
+      operationId: UsersByPhone
+      summary: Find users by phone
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: filter
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: page
+          required: true
+          schema:
+            type: integer
+            nullable: false
+        - in: path
+          name: size
+          required: true
+          schema:
+            type: integer
+            nullable: false
+      responses:
+        '200':
+          description: Get all users by phone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoPage'
+        '400':
+          description: Invalid request
+        '404':
+          description: Resource not found
+        '405':
+          description: Method is not available
+        '500':
+          description: Server error
+
+  /api/v1/users/date_start={dateStart}&date_end={dateEnd}&page={page}&size={size}:
+    get:
+      operationId: UsersByDate
+      summary: Find users by date
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: dateStart
+          required: true
+          schema:
+            type: string
+            format: date-time
+            nullable: false
+        - in: path
+          name: dateEnd
+          required: true
+          schema:
+            type: string
+            format: date-time
+            nullable: false
+        - in: path
+          name: page
+          required: true
+          schema:
+            type: integer
+            nullable: false
+        - in: path
+          name: size
+          required: true
+          schema:
+            type: integer
+            nullable: false
+      responses:
+        '200':
+          description: Get all users by date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoPage'
+        '400':
+          description: Invalid request
+        '404':
+          description: Resource not found
+        '405':
+          description: Method is not available
+        '500':
+          description: Server error
 components:
   schemas:
     # --- User ---
@@ -53,7 +261,21 @@ components:
           description: User name
         birthDate:
           type: string
+          format: date-time
           description: User birthday
+
+    UserDtoPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDto'
+          description: User email
+        totalPage:
+          type: integer
+        currentPage:
+          type: integer
 
     RegistrationUserDto:
       type: object
@@ -66,6 +288,7 @@ components:
           description: User password
         birthDate:
           type: string
+          format: date-time
           description: User birthday
         phone:
           type: array
@@ -90,6 +313,7 @@ components:
           description: User name
         birthDate:
           type: string
+          format: date-time
           description: User birthday
         phone:
           type: string
@@ -107,10 +331,21 @@ components:
         phone:
           type: string
           description: Phone number
-    # --- Phone ---
+    # --- Email ---
     ShortEmailDto:
       type: object
       properties:
         email:
           type: string
           description: Email
+
+    FullEmailDto:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserDto'
+        email:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortEmailDto'
+          description: User email

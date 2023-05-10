@@ -9,6 +9,7 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -28,8 +29,8 @@ databaseChangeLog:
                     nullable: false
                     unique: true
               - column:
-                  name: create_at
+                  name: created_at
                   type: timestamp
               - column:
-                  name: delete_at
+                  name: deleted_at
                   type: timestamp

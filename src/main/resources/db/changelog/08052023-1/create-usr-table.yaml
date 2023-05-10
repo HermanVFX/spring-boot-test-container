@@ -19,13 +19,13 @@ databaseChangeLog:
                   type: varchar(500)
               - column:
                   name: birth_date
-                  type: varchar
+                  type: timestamp
               - column:
                   name: password
                   type: varchar(500)
               - column:
-                  name: create_at
+                  name: created_at
                   type: timestamp
               - column:
-                  name: delete_at
+                  name: deleted_at
                   type: timestamp
