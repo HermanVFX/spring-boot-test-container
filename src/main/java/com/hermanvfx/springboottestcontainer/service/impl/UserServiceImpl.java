@@ -14,6 +14,9 @@ import com.hermanvfx.springboottestcontainer.repository.AccountRepository;
 import com.hermanvfx.springboottestcontainer.repository.EmailRepository;
 import com.hermanvfx.springboottestcontainer.repository.PhoneRepository;
 import com.hermanvfx.springboottestcontainer.repository.UserRepository;
+import com.hermanvfx.springboottestcontainer.service.AccountService;
+import com.hermanvfx.springboottestcontainer.service.EmailService;
+import com.hermanvfx.springboottestcontainer.service.PhoneService;
 import com.hermanvfx.springboottestcontainer.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +36,9 @@ import java.util.Locale;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PhoneRepository phoneRepository;
-    private final EmailRepository emailRepository;
-    private final AccountRepository accountRepository;
+    private final PhoneService phoneService;
+    private final EmailService emailService;
+    private final AccountService accountService;
 
     private final UserMapper userMapper;
     private final PhoneMapper phoneMapper;
@@ -56,24 +59,14 @@ public class UserServiceImpl implements UserService {
 
         List<Phone> phones = phoneMapper.listShortPhoneDtoToListPhone(user.getPhone());
         phones.forEach(phone -> {
-            phone.setUser(newUser);
-            phone.setUserId(newUser.getId());
-            var phoneFromDb = phoneRepository.save(phone);
-            log.info("Phone : {}, for user : {} was added", phoneFromDb.getPhone(), phoneFromDb.getUser().getName());
+            phoneService.saveNewPhone(phone.getPhone(), userFromDb);
         });
         List<Email> emails = emailMapper.listShortEmailDtoToListEmail(user.getEmail());
         emails.forEach(email -> {
-            email.setUser(newUser);
-            email.setUserId(newUser.getId());
-            var emailFromDb = emailRepository.save(email);
-            log.info("Email : {}, for user : {} was added",  emailFromDb.getEmail(), emailFromDb.getUser().getName());
+            emailService.saveNewEmail(email.getEmail(), userFromDb);
         });
 
-        var account = new Account();
-        account.setUser(userFromDb);
-        account.setCreatedAt(Calendar.getInstance(Locale.CANADA));
-        var accountFromDb = accountRepository.save(account);
-        log.info("Account for user : {} was added", accountFromDb.getUser().getName());
+        var accountFromDb = accountService.createNewAccount(userFromDb);
         userFromDb.setAccount(accountFromDb);
         var userFromDbWithAccount = userRepository.save(userFromDb);
         log.info("Insert in User Account with balance : {}", accountFromDb.getBalance());

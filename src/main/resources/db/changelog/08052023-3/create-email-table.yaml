@@ -28,9 +28,3 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
-              - column:
-                  name: created_at
-                  type: timestamp
-              - column:
-                  name: deleted_at
-                  type: timestamp

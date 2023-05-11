@@ -338,14 +338,22 @@ components:
         email:
           type: string
           description: Email
-
-    FullEmailDto:
+    # --- Account ---
+    AccountDto:
       type: object
       properties:
-        user:
-          $ref: '#/components/schemas/UserDto'
-        email:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortEmailDto'
-          description: User email
+        id:
+          type: integer
+          format: int64
+          description: Account id
+        user_id:
+          type: integer
+          format: int64
+          description: User id
+        balance:
+          type: number
+          format: double
+          description: User balance
+        createdAt:
+          type: string
+          format: date-time

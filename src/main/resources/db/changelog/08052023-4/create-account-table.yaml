@@ -45,5 +45,5 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_usr_account
                     references: account(id)
-                    nullable: false
+                    nullable: true
                     unique: true

@@ -1,6 +1,5 @@
 package com.hermanvfx.springboottestcontainer.repository;
 
-import com.hermanvfx.springboottestcontainer.dto.FullEmailDto;
 import com.hermanvfx.springboottestcontainer.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +14,10 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    List<User> findAllByAccountIdIn(Collection<Long> accountIds);
+    Page<User> findAllByAccountIdIn(Collection<Long> accountIds, Pageable pageable);
 
     @EntityGraph(value = "UserPhoneEmailGraph", type = EntityGraph.EntityGraphType.FETCH)
-    List<User> findAllWithPhoneAndEmail();
+    Page<User> findAll(Pageable pageable);
 
     @Query(
             value = "SELECT * FROM usr u where u.name like :name order by u.created_at desc",
