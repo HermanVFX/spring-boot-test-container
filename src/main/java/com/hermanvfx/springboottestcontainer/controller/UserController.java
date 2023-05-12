@@ -3,6 +3,7 @@ package com.hermanvfx.springboottestcontainer.controller;
 import com.hermanvfx.springboottestcontainer.dto.RegistrationUserDto;
 import com.hermanvfx.springboottestcontainer.dto.UserDto;
 import com.hermanvfx.springboottestcontainer.dto.UserDtoPage;
+import com.hermanvfx.springboottestcontainer.dto.UserFullDtoPage;
 import com.hermanvfx.springboottestcontainer.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,5 +57,11 @@ public class UserController implements UserApi {
     public ResponseEntity<UserDtoPage> usersByPhone(String filter, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return new ResponseEntity<>(userService.findLikePhone(filter, pageable), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<UserFullDtoPage> usersWithEmailAndPhone(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return new ResponseEntity<>(userService.findAllWithPhoneAndEmail(pageable), HttpStatus.OK);
     }
 }

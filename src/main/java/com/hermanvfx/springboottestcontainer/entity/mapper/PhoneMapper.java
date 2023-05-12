@@ -14,5 +14,6 @@ public interface PhoneMapper {
     @Mapping(target = "userId", ignore = true)
     Phone shortPhoneDtoToPhone(ShortPhoneDto dto);
     ShortPhoneDto PhoneToShortPhoneDto(Phone entity);
+    List<ShortPhoneDto> listPhoneToListShortPhoneDto(List<Phone> entity);
     List<Phone> listShortPhoneDtoToListPhone(List<ShortPhoneDto> dtos);
 }

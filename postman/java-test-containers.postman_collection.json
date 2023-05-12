@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "d18ca68e-88c8-401d-9d06-5ecce7338e9e",
+		"name": "java-test-containers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22121161",
+		"_collection_link": "https://winter-star-301007.postman.co/workspace/simple-microservice~5718e009-0930-4130-ba1b-ecf3a3419ad3/collection/22121161-d18ca68e-88c8-401d-9d06-5ecce7338e9e?action=share&creator=22121161&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "registration",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function getRandomDate() {\r",
+							"    const maxDate = Date.now();\r",
+							"    const timestamp = Math.floor(Math.random() * maxDate);\r",
+							"    return new Date(timestamp);\r",
+							"}\r",
+							"\r",
+							"pm.environment.set(\"birthDate\", getRandomDate());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{$randomFullName}}\",\r\n    \"password\":\"{{$randomPassword}}\",\r\n    \"birthDate\":\"{{birthDate}}\",\r\n    \"phone\": [\r\n        {\r\n            \"phone\":\"{{$randomPhoneNumber}}\"\r\n        }\r\n    ],\r\n    \"email\": [\r\n        {\r\n            \"email\":\"{{$randomEmail}}\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/user/registration",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "likeName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/users/name/D&page=0&size=5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"name",
+						"D&page=0&size=5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usersByDate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/users/date_start={{date_start}}&date_end={{date_end}}&page=0&size=5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"date_start={{date_start}}&date_end={{date_end}}&page=0&size=5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "likeEmail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/users/email/B&page=0&size=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"email",
+						"B&page=0&size=10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findWithPhoneAndEmail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/users/emailAndPhone/page=0&size=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"emailAndPhone",
+						"page=0&size=10"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"function randomDate(start, end) {",
+					"  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+					"}",
+					"",
+					"const d = randomDate(new Date(2012, 0, 1), new Date());",
+					"",
+					"pm.collectionVariables.set(\"birthDate\", pm.variables.replaceIn(d));",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "RIT",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "birthDate",
+			"value": ""
+		},
+		{
+			"key": "date_start",
+			"value": "2000-06-09T21:10:36.177Z"
+		},
+		{
+			"key": "date_end",
+			"value": "2020-06-09T21:10:36.177Z"
+		}
+	]
+}

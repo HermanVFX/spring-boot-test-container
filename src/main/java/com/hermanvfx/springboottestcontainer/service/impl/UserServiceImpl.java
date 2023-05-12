@@ -1,12 +1,17 @@
 package com.hermanvfx.springboottestcontainer.service.impl;
 
+import com.hermanvfx.springboottestcontainer.dto.FullUserDto;
 import com.hermanvfx.springboottestcontainer.dto.RegistrationUserDto;
+import com.hermanvfx.springboottestcontainer.dto.ShortEmailDto;
+import com.hermanvfx.springboottestcontainer.dto.ShortPhoneDto;
 import com.hermanvfx.springboottestcontainer.dto.UserDto;
 import com.hermanvfx.springboottestcontainer.dto.UserDtoPage;
+import com.hermanvfx.springboottestcontainer.dto.UserFullDtoPage;
 import com.hermanvfx.springboottestcontainer.entity.Account;
 import com.hermanvfx.springboottestcontainer.entity.Email;
 import com.hermanvfx.springboottestcontainer.entity.Phone;
 import com.hermanvfx.springboottestcontainer.entity.User;
+import com.hermanvfx.springboottestcontainer.entity.UserInfo;
 import com.hermanvfx.springboottestcontainer.entity.mapper.EmailMapper;
 import com.hermanvfx.springboottestcontainer.entity.mapper.PhoneMapper;
 import com.hermanvfx.springboottestcontainer.entity.mapper.UserMapper;
@@ -26,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -108,6 +114,12 @@ public class UserServiceImpl implements UserService {
             throw new IllegalStateException("Incorrect filter");
         }
         return pageToDto(users, pageable);
+    }
+
+    @Override
+    public UserFullDtoPage findAllWithPhoneAndEmail(Pageable pageable) {
+        var userInfoPage = userRepository.findAllUsers(pageable);
+        return userMapper.pageUserInfoToUserFullDtoPage(userInfoPage);
     }
 
     private UserDtoPage pageToDto(Page<User> users, Pageable pageable) {

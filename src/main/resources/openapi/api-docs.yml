@@ -78,6 +78,41 @@ paths:
         '500':
           description: Server error
 
+  /api/v1/users/emailAndPhone/page={page}&size={size}:
+    get:
+      operationId: UsersWithEmailAndPhone
+      summary: Find users all
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: page
+          required: true
+          schema:
+            type: integer
+            nullable: false
+        - in: path
+          name: size
+          required: true
+          schema:
+            type: integer
+            nullable: false
+      responses:
+        '200':
+          description: Get all users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserFullDtoPage'
+        '400':
+          description: Invalid request
+        '404':
+          description: Resource not found
+        '405':
+          description: Method is not available
+        '500':
+          description: Server error
+
   /api/v1/users/email/{filter}&page={page}&size={size}:
     get:
       operationId: UsersByEmail
@@ -277,6 +312,19 @@ components:
         currentPage:
           type: integer
 
+    UserFullDtoPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/FullUserDto'
+          description: User email
+        totalPage:
+          type: integer
+        currentPage:
+          type: integer
+
     RegistrationUserDto:
       type: object
       properties:
@@ -313,17 +361,17 @@ components:
           description: User name
         birthDate:
           type: string
-          format: date-time
+          format: timestamp
           description: User birthday
         phone:
-          type: string
-          description: Phone number
+          type: array
+          items:
+            type: string
         email:
-          type: string
-          description: User email
-        balance:
-          type: number
-          format: double
+          type: array
+          items:
+            type: string
+
     # --- Phone ---
     ShortPhoneDto:
       type: object
